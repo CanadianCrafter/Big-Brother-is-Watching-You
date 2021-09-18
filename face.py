@@ -9,7 +9,7 @@ detector = dlib.get_frontal_face_detector()
 while (True):
     # Capture frame-by-frame
     ret, frame = cap.read()
-    path = r'C:\Users\zbh26\Desktop\face.jpg'
+    path = r'https://github.com/CanadianCrafter/HTN-Big-Brother-is-Watching-You/blob/main/people.jpg'
     gray = cv2.cvtColor(frame,cv2.COLOR_BGR2GRAY)
     image = cv2.imread(path, 0)
 
