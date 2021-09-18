@@ -42,11 +42,11 @@ while (True):
 
         #print(face)
         # position of face
-        cv2.rectangle(image, (x1,y1), (x2,y2),(0,255,0),3)
+        # cv2.rectangle(image, (x1,y1), (x2,y2),(0,255,0),3)
 
-        left_eye_pos = [360, 310]  # change the left_eye_pos to map the face position to eyeballs
+        left_eye_pos = [350, 320]  # change the left_eye_pos to map the face position to eyeballs
         # (220, 250) is the coordinate of left eye(left-top corner)
-        right_eye_pos = [525, 320]  # change the right_eye_pos to map the face position to eyeballs
+        right_eye_pos = [515, 330]  # change the right_eye_pos to map the face position to eyeballs
         # (320, 250) is the coordinate of right eye(left-top corner)
 
         left_eye_pos = move_eyeball(x_center, y_center, left_eye_pos)
