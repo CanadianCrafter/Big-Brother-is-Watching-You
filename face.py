@@ -4,22 +4,14 @@ import dlib
 import math
 
 cap = cv2.VideoCapture(0)
+vid_width = cap.get(3)
+vid_height = cap.get(4)
 
 detector = dlib.get_frontal_face_detector()
 
 
 def move_eyeball(x_center, y_center, eye_pos):
-    theta = np.arctan([(y_center - eye_pos[1]) / (x_center - eye_pos[0])])[0]
-    if (y_center - eye_pos[1] > 0) and (x_center - eye_pos[0] < 0):
-        theta = theta + math.pi
-    if (y_center - eye_pos[1] < 0) and (x_center - eye_pos[0] > 0):
-        theta = theta - math.pi
-    # 0->pi degree positive, -pi-> 0 negative, 0 is the direction of right x-axis like in math
-    dis = 10  # distance from eyeball to the center of the eye
-    y_dis = math.sin(theta) * dis
-    x_dis = math.cos(theta) * dis
-    return round(eye_pos[0] + x_dis), round(eye_pos[1] + y_dis)
-
+    return (eye_pos[0] + round((x_center/1034)*50) - 25, eye_pos[1] + round((y_center/979)*70) - 35)
 
 while (True):
     path = '.\people.jpg'  # the path of face image (people.jpg)
@@ -32,10 +24,10 @@ while (True):
     faces = detector(gray)
     # print(faces)
     for face in faces:
-        x1 = round(1034 - (face.left()/640)*1034)
-        y1 = round((face.top()/480)*979)
-        x2 = round(1034 - (face.right()/640)*1034)
-        y2 = round((face.bottom()/480)*979)
+        x1 = round(1034 - (face.left()/vid_width)*1034)
+        y1 = round((face.top()/vid_height)*979)
+        x2 = round(1034 - (face.right()/vid_width)*1034)
+        y2 = round((face.bottom()/vid_height)*979)
 
         x_center = (x1 + x2) / 2
         y_center = (y1 + y2) / 2
@@ -44,20 +36,15 @@ while (True):
         # position of face
         cv2.rectangle(image, (x1,y1), (x2,y2),(0,255,0),3)
 
-        left_eye_pos = (390, 450)  # change the left_eye_pos to map the face position to eyeballs
+        left_eye_pos = [390, 450]  # change the left_eye_pos to map the face position to eyeballs
         # (220, 250) is the coordinate of left eye(left-top corner)
-        right_eye_pos = (565, 450)  # change the right_eye_pos to map the face position to eyeballs
+        right_eye_pos = [565, 450]  # change the right_eye_pos to map the face position to eyeballs
         # (320, 250) is the coordinate of right eye(left-top corner)
 
+        left_eye_pos = move_eyeball(x_center, y_center, left_eye_pos)
+        right_eye_pos = move_eyeball(x_center, y_center, right_eye_pos)
         cv2.circle(image, left_eye_pos, 15, (0, 0, 0), -1)
-        # left eyeballs
-        left_eyeball_pos = move_eyeball(x_center, y_center, left_eye_pos)
-        cv2.circle(image, left_eyeball_pos, 4, (255, 255, 255), -1)
-
         cv2.circle(image, right_eye_pos, 15, (0, 0, 0), -1)
-        # right eyeballs
-        right_eyeball_pos = move_eyeball(x_center, y_center, right_eye_pos)
-        cv2.circle(image, right_eyeball_pos, 4, (255, 255, 255), -1)
 
         # Display the resulting frame
     cv2.imshow('Supervisor', image)  # May be replaced with a background image rather than what webcam catches
