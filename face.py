@@ -33,9 +33,9 @@ while (True):
     # print(faces)
     for face in faces:
         x1 = round(img_width - (face.left()/vid_width)*img_width)
-        y1 = round((face.top()/vid_height)*img_height)
+        y1 = round((face.top()/vid_height)*img_height)-200
         x2 = round(img_width - (face.right()/vid_width)*img_width)
-        y2 = round((face.bottom()/vid_height)*img_height)
+        y2 = round((face.bottom()/vid_height)*img_height)-200
 
         x_center = (x1 + x2) / 2
         y_center = (y1 + y2) / 2
@@ -59,6 +59,8 @@ while (True):
 
     if cv2.waitKey(20) & 0xFF == ord('q'):
         break
+    if cv2.getWindowProperty('Supervisor',cv2.WND_PROP_VISIBLE) < 1:        
+        break        
 
     image = cv2.imread(path)
 
