@@ -32,20 +32,21 @@ while (True):
     faces = detector(gray)
     # print(faces)
     for face in faces:
-        x1 = face.left()
-        y1 = face.top()
-        x2 = face.right()
-        y2 = face.bottom()
+        x1 = round(1034 - (face.left()/640)*1034)
+        y1 = round((face.top()/480)*979)
+        x2 = round(1034 - (face.right()/640)*1034)
+        y2 = round((face.bottom()/480)*979)
 
         x_center = (x1 + x2) / 2
         y_center = (y1 + y2) / 2
-        print(face)
+
+        #print(face)
         # position of face
         cv2.rectangle(image, (x1,y1), (x2,y2),(0,255,0),3)
 
-        left_eye_pos = (225, 255)  # change the left_eye_pos to map the face position to eyeballs
+        left_eye_pos = (390, 450)  # change the left_eye_pos to map the face position to eyeballs
         # (220, 250) is the coordinate of left eye(left-top corner)
-        right_eye_pos = (325, 255)  # change the right_eye_pos to map the face position to eyeballs
+        right_eye_pos = (565, 450)  # change the right_eye_pos to map the face position to eyeballs
         # (320, 250) is the coordinate of right eye(left-top corner)
 
         cv2.circle(image, left_eye_pos, 15, (0, 0, 0), -1)
