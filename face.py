@@ -14,7 +14,7 @@ def move_eyeball(x_center, y_center, eye_pos):
     return (eye_pos[0] + round((x_center/1034)*50) - 25, eye_pos[1] + round((y_center/979)*70) - 35)
 
 while (True):
-    path = '.\people.jpg'  # the path of face image (people.jpg)
+    path = '.\TERIble edit.png'  # the path of face image (people.jpg)
     image = cv2.imread(path, 0)
 
     # Capture frame-by-frame
@@ -36,9 +36,9 @@ while (True):
         # position of face
         cv2.rectangle(image, (x1,y1), (x2,y2),(0,255,0),3)
 
-        left_eye_pos = [390, 450]  # change the left_eye_pos to map the face position to eyeballs
+        left_eye_pos = [350, 310]  # change the left_eye_pos to map the face position to eyeballs
         # (220, 250) is the coordinate of left eye(left-top corner)
-        right_eye_pos = [565, 450]  # change the right_eye_pos to map the face position to eyeballs
+        right_eye_pos = [515, 320]  # change the right_eye_pos to map the face position to eyeballs
         # (320, 250) is the coordinate of right eye(left-top corner)
 
         left_eye_pos = move_eyeball(x_center, y_center, left_eye_pos)
