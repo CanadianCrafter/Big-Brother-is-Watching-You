@@ -22,7 +22,7 @@ def move_eyeball(x_center, y_center, eye_pos):
 
 
 while (True):
-    path = r'C:\Users\zbh26\Desktop\face.jpg'  # the path of face image (people.jpg)
+    path = '.\people.jpg'  # the path of face image (people.jpg)
     image = cv2.imread(path, 0)
 
     # Capture frame-by-frame
