@@ -8,6 +8,7 @@ import math
 #hard coded
 eye_width = 80
 eye_height = 80
+resolution = (1920, 1080)
 
 #----------------------------
 
@@ -24,6 +25,7 @@ img_width, img_height, channel = image.shape
 def move_eyeball(x_center, y_center, eye_pos):
     return (eye_pos[0] + round((x_center/img_width)*eye_width) - round(eye_width/2), eye_pos[1] + round((y_center/img_height)*eye_height) - round(eye_height/2))
 
+cv2.namedWindow("Supervisor", cv2.WINDOW_NORMAL)
 while (True):
     # Capture frame-by-frame
     ret, frame = cap.read()
@@ -55,11 +57,12 @@ while (True):
         cv2.circle(image, right_eye_pos, 15, (0, 0, 0), -1)
 
         # Display the resulting frame
-    cv2.imshow('Supervisor', image)  # May be replaced with a background image rather than what webcam catches
+    
+    cv2.imshow("Supervisor", image)
 
     if cv2.waitKey(20) & 0xFF == ord('q'):
         break
-    if cv2.getWindowProperty('Supervisor',cv2.WND_PROP_VISIBLE) < 1:        
+    if cv2.getWindowProperty("Supervisor", cv2.WND_PROP_VISIBLE) < 1:        
         break        
 
     image = cv2.imread(path)
