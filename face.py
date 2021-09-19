@@ -8,7 +8,6 @@ import math
 #hard coded
 eye_width = 80
 eye_height = 80
-resolution = (1920, 1080)
 
 #----------------------------
 
@@ -33,7 +32,8 @@ while (True):
 
     faces = detector(gray)
     # print(faces)
-    for face in faces:
+    if len(faces) > 0:
+        face = faces[0]
         x1 = round(img_width - (face.left()/vid_width)*img_width)
         y1 = round((face.top()/vid_height)*img_height)-200
         x2 = round(img_width - (face.right()/vid_width)*img_width)
